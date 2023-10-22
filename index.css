@@ -1,0 +1,64 @@
+:root{
+    --bnsize: min(20vw,15vh);
+    --bn-hoversize: 100%;
+    --numcolor: rgb(90, 90, 90);
+    --maincalcolor: orange;
+    --bnpad: min(1vw,1vh);
+    --textsize: min(6vw,6vh);
+    --bn-border-radius: 50vw;
+    --transition-duration: 0.4s;
+    --border-size: 1vw;
+    --bnmargin:0.1vw;
+    --textmargin: 0.2vw;
+    --container-margin: 5vw
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    border: 1px red solid;
+}
+
+#buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+.bn,.fnbn {
+    background-color: var(--numcolor);
+    color: white;
+    padding: var(--bnpad);
+    width: var(--bnsize);
+    height: var(--bnsize);
+    font-size: var(--textsize);
+    border-radius: var(--bn-border-radius);
+    transition-duration: var(--transition-duration);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.fnbn{
+    background-color: var(--maincalcolor);
+}
+
+.bn:hover, .fnbn:hover {
+    border: 5px solid white;
+}
+.bn:active, .fnbn:active {
+    opacity: 70%; 
+    transform: translateY(5px);
+}
+.input, .output {
+    font-size: var(--textsize);
+    /* border: 2px solid black; */
+    width: calc(var(--bnsize)*3);
+    height: 120%
+}
