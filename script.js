@@ -1,14 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
     const nums = document.querySelectorAll('.num');
-    const input = document.getElementById('input')
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
     const fn = document.querySelectorAll('.fnbn');
     const result = document.getElementById('output');
     const del=document.getElementById('del');
+    const equal=document.getElementById('=');
+    const dot=document.getElementById('.');
+    const negative=document.getElementById('+/-');
+    var memory='' //memory to calculate. Memory is different than input 
+
+    const beforedot_listener= document.querySelectorAll('.fnbn , beforedot')
+
     const clear=document.getElementById('C');
     const bracket=document.getElementById('brackets')
     const numbers='1234567890';
-    const notbegin='/+-x%'
-    const beforebracket='/+-x(';
+    const notbegin='/+-*%'
+    const beforebracket='/+-*(';
+    const beforedot='/*+-()'
 
 
     // loop through numbers and show on the input box, if the first number is 0 then no other 0
@@ -53,16 +62,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // fn for clear (C) button
     clear.addEventListener('click',() => {
         input.textContent='';
+        output.textContent='';
+        dot_listener=1
     })
-    // Algorithm for brackets button 
+    // fn for brackets button 
     bracket.addEventListener('click',() => { 
         if (beforebracket.includes(input.textContent.slice(-1))) {
             input.textContent += '('
             
         } else if (input.textContent.split('(').length<=input.textContent.split(')').length) {
-            input.textContent+='x(';
+            input.textContent+='*(';
         } else {
             input.textContent+=')'
+        }
+    })
+    // FN for '=' button using eval 
+    equal.addEventListener('click',() => {
+        output.textContent=eval(input.textContent)
+    })
+    // event for decimal (dot) button. The button is valid only once after the function with const beforedot. Assign dot_listener =1 at first
+    // When a beforedot is pressed, dot_listener is multiplied with -1. When a dot is press, the value is -1. Dot is valid only when dot_listener===1
+    var dot_listener=1;
+    dot.addEventListener('click',() => {
+        if (dot_listener===1) {
+        input.textContent=input.textContent + '.';
+        dot_listener=-1
+        }
+    })
+    beforedot_listener.forEach((ele) =>{
+        ele.addEventListener('click', () => {
+        dot_listener=1
+        })
+    })
+    // fn for +/- button: appear only once before the number, if it is after a function button then make an open bracket
+    negative.addEventListener('click',() => {
+        if (notbegin.includes(input.textContent.slice(-1))){
+            input.textContent=input.textContent + '(-'
+
         }
     })
 });
