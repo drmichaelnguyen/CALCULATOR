@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const dot=document.getElementById('.');
     const negative=document.getElementById('+/-');
     var memory='' //memory to calculate. Memory is different than input 
+    // previous calculation 
+    const previous_cal=document.getElementById('prev_cal');
+
 
     const beforedot_listener= document.querySelectorAll('.fnbn , beforedot')
 
@@ -44,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if ('/x-+'.includes(inputvalue.slice(-1))) {
                 // if already has function button then replace the current function
                 input.textContent =input.textContent.slice(0,-1)+ ele.textContent;
+                input.textContent =input.textContent.slice(0,-1)+ ele.textContent;
                 result.textContent='Press = for result';
 
             } else {
@@ -78,7 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     // FN for '=' button using eval 
     equal.addEventListener('click',() => {
-        output.textContent=eval(input.textContent)
+        output.textContent=eval(input.textContent);
+        previous_cal.innerHTML+= "<div>" + input.textContent+'='+output.textContent + "</div>"
+        input.textContent=''
     })
     // event for decimal (dot) button. The button is valid only once after the function with const beforedot. Assign dot_listener =1 at first
     // When a beforedot is pressed, dot_listener is multiplied with -1. When a dot is press, the value is -1. Dot is valid only when dot_listener===1
